@@ -9,8 +9,8 @@ typedef struct cell
     int next_state;
 }cell_t;
 
-#define WAIT 2000 //for the animation speed, the bigger the slower the animation is
-#define SIZE 100 //size of the sandbox
+#define WAIT 200000 //for the animation speed, the bigger the slower the animation is
+#define SIZE 50 //size of the sandbox
 #define ON 1 //state of cell, lit or turned off
 #define OFF 0
 //for easier management of directions in "pointers":
@@ -31,19 +31,21 @@ void update_states(cell_t space[SIZE][SIZE], int size);
 int birth(cell_t* cell);
 int survival(cell_t* cell);
 int death(cell_t* cell);
+int glider(cell_t space[SIZE][SIZE], int size, int k, int l);
+int froggy(cell_t space[SIZE][SIZE], int size, int k, int l);
 
 int main(int argc, char* argv[])
 {
     cell_t space[SIZE][SIZE];
     fill_pointers(space,SIZE);
     initial_conditions(space,SIZE);
-
-    //glider:
-    space[0][0].state = ON;
-    space[1][1].state = ON;
-    space[2][0].state = ON;
-    space[2][1].state = ON;
-    space[1][2].state = ON;
+    
+    //glider can be changed for any other object
+    if(froggy(space,SIZE,0,1) == 0 || glider(space,SIZE,5,5) == 0) 
+    {
+        printf("%s: Wrong starting coordinates for glider, stopping program\n", argv[0]);
+        return -1;
+    }
     print_space(space, SIZE);
     
     int still_running = 1;
@@ -280,4 +282,33 @@ int death(cell_t* cell)
              return 1;
          }
     return 0;
+}
+//2 object for fun, choose k,l-idexes as sarting point for object
+//
+int glider(cell_t space[SIZE][SIZE], int size, int k, int l)
+{
+    if(k<0||k>size-1||l<0||l>size-1)
+        return 0;
+    if(k>size-3||l>size-3)
+        return 0;
+    space[k][l].state = ON;
+    space[k+1][l+1].state = ON;
+    space[k+2][l].state = ON;
+    space[k+2][l+1].state = ON;
+    space[k+1][l+2].state = ON;
+    return 1;
+}
+int froggy(cell_t space[SIZE][SIZE], int size, int k, int l)
+{
+    if(k<0||k>size-1||l<0||l>size-1)
+        return 0;
+    if(k>size-4||l>size-2)
+        return 0;
+    space[k][l].state = ON;
+    space[k+1][l].state = ON;
+    space[k+2][l].state = ON;
+    space[k+1][l+1].state = ON;
+    space[k+2][l+1].state = ON;
+    space[k+3][l+1].state = ON;
+    return 1;
 }
