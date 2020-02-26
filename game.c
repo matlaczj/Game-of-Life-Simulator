@@ -9,8 +9,8 @@ typedef struct cell
     int next_state;
 }cell_t;
 
-#define WAIT 200000 //for the animation speed, the bigger the slower the animation is
-#define SIZE 10 //size of the sandbox
+#define WAIT 2000 //for the animation speed, the bigger the slower the animation is
+#define SIZE 100 //size of the sandbox
 #define ON 1 //state of cell, lit or turned off
 #define OFF 0
 //for easier management of directions in "pointers":
@@ -37,13 +37,13 @@ int main(int argc, char* argv[])
     cell_t space[SIZE][SIZE];
     fill_pointers(space,SIZE);
     initial_conditions(space,SIZE);
-    
+
     //glider:
+    space[0][0].state = ON;
     space[1][1].state = ON;
-    space[2][2].state = ON;
-    space[3][1].state = ON;
-    space[3][2].state = ON;
-    space[2][3].state = ON;
+    space[2][0].state = ON;
+    space[2][1].state = ON;
+    space[1][2].state = ON;
     print_space(space, SIZE);
     
     int still_running = 1;
@@ -58,10 +58,8 @@ int main(int argc, char* argv[])
                 if(survival(space[i]+j)) still_running++;
                 death(space[i]+j);
             }
-        
         update_states(space, SIZE);
         print_space(space, SIZE);
-        
     }
 }
 
@@ -85,7 +83,7 @@ void fill_pointers(cell_t space[SIZE][SIZE], int size)
                 space[i][j].pointers[LEWODOL]=NULL;
                 space[i][j].pointers[PRAWODOL]=space[i+1]+j+1;
             }
-            if(i==0 && j==size-1) //right up
+            else if(i==0 && j==size-1) //right up
             {
                 space[i][j].pointers[LEWO]=space[i]+j-1;
                 space[i][j].pointers[PRAWO]=NULL;
@@ -96,7 +94,7 @@ void fill_pointers(cell_t space[SIZE][SIZE], int size)
                 space[i][j].pointers[LEWODOL]=space[i+1]+j-1;
                 space[i][j].pointers[PRAWODOL]=NULL;
             }
-            if(i==size-1 && j==0) //left down
+            else if(i==size-1 && j==0) //left down
             {
                 space[i][j].pointers[LEWO]=NULL;
                 space[i][j].pointers[PRAWO]=space[i]+j+1;
@@ -107,7 +105,7 @@ void fill_pointers(cell_t space[SIZE][SIZE], int size)
                 space[i][j].pointers[LEWODOL]=NULL;
                 space[i][j].pointers[PRAWODOL]=NULL;
             }
-            if(i==size-1 && j==size-1) //right down
+            else if(i==size-1 && j==size-1) //right down
             {
                 space[i][j].pointers[LEWO]=space[i]+j-1;
                 space[i][j].pointers[PRAWO]=NULL;
@@ -119,7 +117,7 @@ void fill_pointers(cell_t space[SIZE][SIZE], int size)
                 space[i][j].pointers[PRAWODOL]=NULL;
             }
             //egdes (without corners):
-            if(i==0 && j>0 && j<size-1) //up edge
+            else if(i==0 && j>0 && j<size-1) //up edge
             {
                 space[i][j].pointers[LEWO]=space[i]+j-1;
                 space[i][j].pointers[PRAWO]=space[i]+j+1;
@@ -130,7 +128,7 @@ void fill_pointers(cell_t space[SIZE][SIZE], int size)
                 space[i][j].pointers[LEWODOL]=space[i+1]+j-1;
                 space[i][j].pointers[PRAWODOL]=space[i+1]+j+1;
             }
-            if(i==size-1 && j>0 && j<size-1) //down edge
+            else if(i==size-1 && j>0 && j<size-1) //down edge
             {
                 space[i][j].pointers[LEWO]=space[i]+j-1;
                 space[i][j].pointers[PRAWO]=space[i]+j+1;
@@ -141,7 +139,7 @@ void fill_pointers(cell_t space[SIZE][SIZE], int size)
                 space[i][j].pointers[LEWODOL]=NULL;
                 space[i][j].pointers[PRAWODOL]=NULL;
             }
-            if(i>0 && i<size-1 && j==0) //left edge
+            else if(i>0 && i<size-1 && j==0) //left edge
             {
                 space[i][j].pointers[LEWO]=NULL;
                 space[i][j].pointers[PRAWO]=space[i]+j+1;
@@ -152,7 +150,7 @@ void fill_pointers(cell_t space[SIZE][SIZE], int size)
                 space[i][j].pointers[LEWODOL]=NULL;
                 space[i][j].pointers[PRAWODOL]=space[i+1]+j+1;
             }
-            if(i>0 && i<size-1 && j==size-1) //right edge
+            else if(i>0 && i<size-1 && j==size-1) //right edge
             {
                 space[i][j].pointers[LEWO]=space[i]+j-1;
                 space[i][j].pointers[PRAWO]=NULL;
@@ -193,7 +191,7 @@ void print_space(cell_t space[SIZE][SIZE], int size)
                 printf("# ");
             else 
             {
-                printf("space[%d][%d].state is wrong value: %d\n",i,j,space[i][j].state);
+                printf("\nspace[%d][%d].state has wrong value: %d\n",i,j,space[i][j].state);
             }
         }
         printf("\n");
@@ -211,6 +209,10 @@ void initial_conditions(cell_t space[SIZE][SIZE], int size)
         {
             space[i][j].state = OFF;
             space[i][j].next_state = OFF; 
+            if(space[i][j].state != OFF)
+                printf("\nspace[%d][%d].state has wrong value: %d\n",i,j,space[i][j].state);
+            if(space[i][j].next_state != OFF)
+                printf("\nspace[%d][%d].next_state has wrong value: %d\n",i,j,space[i][j].next_state);
         }
     }
 }
@@ -224,6 +226,8 @@ int count_friends(cell_t* cell)
             if(cell->pointers[i]->state == ON)
                 count++;
     }
+    if(count < 0 || count > 8) 
+        printf("\ncount variable has impossible value\n");
     return count;
 }
 void update_states(cell_t space[SIZE][SIZE], int size)
@@ -237,6 +241,7 @@ void update_states(cell_t space[SIZE][SIZE], int size)
             for(j=0; j<size; j++)
             {
                 space[i][j].state = space[i][j].next_state;
+                space[i][j].next_state = OFF;
             }
         }
 }
