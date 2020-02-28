@@ -4,16 +4,16 @@
 
 typedef struct cell
 {
-    struct cell* pointers[8];
+    struct cell* pointers[8];   //mozna sie tego pozbyc... przeciez te wskazniki i tak sa gdzies w tablicy...
     int state;
     int next_state;
 }cell_t;
 
-#define WAIT 200000 //for the animation speed, the bigger the slower the animation is
+#define WAIT 200000 //for the animation speed, the bigger the slower the animation is   --to będzie do usunięcia
 #define SIZE 50 //size of the sandbox
 #define ON 1 //state of cell, lit or turned off
 #define OFF 0
-//for easier management of directions in "pointers":
+//for easier management of directions in "pointers":    --to w ogole nie powinno byc konieczne IMO
 #define LEWO 0
 #define PRAWO 1
 #define GORA 2
@@ -31,8 +31,8 @@ void update_states(cell_t space[SIZE][SIZE], int size);
 int birth(cell_t* cell);
 int survival(cell_t* cell);
 int death(cell_t* cell);
-int glider(cell_t space[SIZE][SIZE], int size, int k, int l);
-int froggy(cell_t space[SIZE][SIZE], int size, int k, int l);
+int glider(cell_t space[SIZE][SIZE], int size, int k, int l);   //tez do wywalenia w ostatecznym programie
+int froggy(cell_t space[SIZE][SIZE], int size, int k, int l);   // @up
 
 int main(int argc, char* argv[])
 {
@@ -41,15 +41,15 @@ int main(int argc, char* argv[])
     initial_conditions(space,SIZE);
     
     //glider can be changed for any other object
-    if(froggy(space,SIZE,0,1) == 0 || glider(space,SIZE,5,5) == 0) 
+    if(froggy(space,SIZE,0,1) == 0 || glider(space,SIZE,5,5) == 0)
     {
         printf("%s: Wrong starting coordinates for glider, stopping program\n", argv[0]);
         return -1;
     }
     print_space(space, SIZE);
     
-    int still_running = 1;
-    while(still_running)
+    int still_running = 1;  //do czego sluzy zmienna still running?
+    while(still_running)    //chyba rownie dobrze mogloby byc while(1)
     {
         still_running = 0;
         int i,j;
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
             for(j=0; j<SIZE; j++)
             {
                 if(birth(space[i]+j)) still_running++;
-                if(survival(space[i]+j)) still_running++;
+                if(survival(space[i]+j)) still_running++;   //ojoj, still_running moze przyjac jakies szalone wartosci
                 death(space[i]+j);
             }
         update_states(space, SIZE);
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
     }
 }
 
-void fill_pointers(cell_t space[SIZE][SIZE], int size)
+void fill_pointers(cell_t space[SIZE][SIZE], int size)  //czy to nie zjadacz czasu i pamieci??
 {
     //this function gives every cell easy information about pointers to their neighbours, they are all inside this cell's "pointers" array, Moore's neighbourhood 
     //
@@ -177,7 +177,7 @@ void fill_pointers(cell_t space[SIZE][SIZE], int size)
             }
         }
 }
-void print_space(cell_t space[SIZE][SIZE], int size)
+void print_space(cell_t space[SIZE][SIZE], int size)    //okej, to analogicznie trzeba bedzie zrobic do png
 {
     //this function prints the current state of space
     //
@@ -194,13 +194,14 @@ void print_space(cell_t space[SIZE][SIZE], int size)
             else 
             {
                 printf("\nspace[%d][%d].state has wrong value: %d\n",i,j,space[i][j].state);
+                exit(EXIT_FAILURE);
             }
         }
         printf("\n");
     } 
     usleep(WAIT);
 }
-void initial_conditions(cell_t space[SIZE][SIZE], int size)
+void initial_conditions(cell_t space[SIZE][SIZE], int size) // bedziemy chcieli zeby mogla czytac z pliku
 {
     //this function sets the deafult state and next state for each cell on 2D matrix
     //
