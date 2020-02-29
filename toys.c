@@ -6,8 +6,8 @@
 //
 int glider(int r, int c, cell_t space[r][c], int k, int l)
 {
-    int sq_per = 3; // rectangle perimeter
-    if(k<1 || k>r-sq_per-1 || l<1 || l>r-sq_per-1)
+    int re_per = 3; // rectangle perimeter
+    if(k<1 || k>r-re_per-1 || l<1 || l>r-re_per-1)
         return 0;
     space[k][l].state = ON;
     space[k+1][l+1].state = ON;
@@ -19,8 +19,8 @@ int glider(int r, int c, cell_t space[r][c], int k, int l)
 
 int froggy(int r, int c, cell_t space[r][c], int k, int l)
 {
-    int sq_per = 4;
-    if(k<1 || k>r-sq_per-1 || l<1 || l>r-sq_per-1)
+    int re_per = 4;
+    if(k<1 || k>r-re_per-1 || l<1 || l>r-re_per-1)
         return 0;
     space[k][l+1].state = ON;
     space[k+1][l+1].state = ON;
@@ -33,8 +33,8 @@ int froggy(int r, int c, cell_t space[r][c], int k, int l)
 
 int stick(int r, int c, cell_t space[r][c], int k, int l)
 {
-    int sq_per = 3;
-    if(k<1 || k>r-sq_per-1 || l<1 || l>r-sq_per-1)
+    int re_per = 3;
+    if(k<1 || k>r-re_per-1 || l<1 || l>r-re_per-1)
         return 0;
     space[k][l+1].state = ON;
     space[k+1][l+1].state = ON;
