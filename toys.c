@@ -1,14 +1,13 @@
 #include "service.h"
 
 //objects for fun, how to use:
-//objects have different shapes so imagine they are inside tight rectangle
+//objects have different shapes so imagine they are inside tight rectangle perimeter
 //indexes k, l are position of that rectangle's left upper cell
 //
 int glider(int r, int c, cell_t space[r][c], int k, int l)
 {
-    if(k<0||k>r-1||l<0||l>c-1)
-        return 0;
-    if(k>r-3||l>c-3)
+    int sq_per = 3; // rectangle perimeter
+    if(k<1 || k>r-sq_per-1 || l<1 || l>r-sq_per-1)
         return 0;
     space[k][l].state = ON;
     space[k+1][l+1].state = ON;
@@ -20,9 +19,8 @@ int glider(int r, int c, cell_t space[r][c], int k, int l)
 
 int froggy(int r, int c, cell_t space[r][c], int k, int l)
 {
-    if(k<0||k>r-1||l<0||l>c-1)
-        return 0;
-    if(k>r-4||l>c-2)
+    int sq_per = 4;
+    if(k<1 || k>r-sq_per-1 || l<1 || l>r-sq_per-1)
         return 0;
     space[k][l+1].state = ON;
     space[k+1][l+1].state = ON;
@@ -35,9 +33,8 @@ int froggy(int r, int c, cell_t space[r][c], int k, int l)
 
 int stick(int r, int c, cell_t space[r][c], int k, int l)
 {
-    if(k<0||k>r-1||l<0||l>c-1)
-        return 0;
-    if(k>r-2||l>c-2)
+    int sq_per = 3;
+    if(k<1 || k>r-sq_per-1 || l<1 || l>r-sq_per-1)
         return 0;
     space[k][l+1].state = ON;
     space[k+1][l+1].state = ON;
