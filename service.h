@@ -9,9 +9,9 @@
 
 typedef struct cell
 {
-    int state;
-    int next_state;
-    int is_padding;
+    char state;
+    char next_state;
+    char is_padding;
 }cell_t;
 
 void prepare_space(int r, int c, cell_t space[r][c]);
