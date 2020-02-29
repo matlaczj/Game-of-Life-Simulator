@@ -4,7 +4,7 @@
 // cc main.c toys.c update_states.c count_friends.c life_cycle.c print_space.c prepare_space.c
 
 //SIZE of the sandbox changable in service.h
-#define WAIT 20000 //for the animation speed, the bigger the slower the animation is
+#define WAIT 200000 //for the animation speed, the bigger the slower the animation is
 
 int main(int argc, char* argv[])
 {
@@ -18,26 +18,30 @@ int main(int argc, char* argv[])
     cell_t space[r][c];
     prepare_space(r,c,space);
     
-    //creating a funny structure for testing:
-    int k,l;
-    for(k=1; k<r-1; k+=4)
-        for(l=1; l<c-1; l+=4)
-        {
-            froggy(r,c,space,k,l);
-            stick(r,c,space,k+1,l+1);
-        }
-    
+    //creating a glider for testing:
+    //of size 3x3 so r and c should be at least 3 long
+    //please remeber that indexes shouldnt be on padding
+    if(glider(r,c,space,1,1)==0) 
+    {
+        printf("\n%s: too little space or wrong starting position for object\n",argv[0]);
+        return -1;
+    }
     print_space(r,c,space, WAIT);
     
-    int nrgens = 10000; //number of generations to execute and print
-    while(nrgens--)
+    int running = 1; 
+    //running is incremented if at least 1 cell is still present on the space 
+    //meaning it was born or survived, this way we know its still worth running the program 
+    //because there is potential for new things to happen
+    int nrgens = 100; //number of generations to execute and print
+    while(nrgens-- && running)
     {
+        running = 0;
         int i,j;
         for(i=1; i<r-1; i++)
             for(j=1; j<c-1; j++)
             {
-                birth(r,c,space,i,j);
-                survival(r,c,space,i,j);
+                if(birth(r,c,space,i,j)) running++;
+                if(survival(r,c,space,i,j)) running++;
                 death(r,c,space,i,j);
             }
         update_states(r,c,space);
