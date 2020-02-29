@@ -8,8 +8,8 @@ void update_states(int r, int c, cell_t space[r][c])
     int i,j;
     for(i=1; i<r-1; i++)
         for(j=1; j<c-1; j++)
-        {
+//       {
             space[i][j].state = space[i][j].next_state;
-            space[i][j].next_state = OFF;
-        }
+//          space[i][j].next_state = OFF;   // niepotrzebne
+//        }
 }

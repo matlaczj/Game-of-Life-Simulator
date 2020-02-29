@@ -9,7 +9,7 @@
 
 typedef struct cell
 {
-    int state;
+    int state;  //mysle ze mozna zmienic na _Bool zeby jeszcze oszczedzic pamiec
     int next_state;
     int is_padding;
 }cell_t;

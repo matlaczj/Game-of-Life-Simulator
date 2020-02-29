@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     }
     print_space(space, SIZE);
     
-    int still_running = 1;  //do czego sluzy zmienna still running?
+    int still_running = 1;  //do czego sluzy zmienna still_running?
     while(still_running)    //chyba rownie dobrze mogloby byc while(1)
     {
         still_running = 0;
@@ -238,6 +238,7 @@ void update_states(cell_t space[SIZE][SIZE], int size)
     //changes states of all cells for their planned states "next_state" and changes
     //their planned states to NONE
     //
+    //chyba zbedne jest zerowanie nastepnych stanow?? - i tak zostana zmienione w nastepnym kroku, prawda?
     int i,j;
     for(i=0; i<size; i++)
         {

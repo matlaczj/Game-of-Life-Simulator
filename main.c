@@ -3,8 +3,8 @@
 // since make is not yet working use this to compile easily
 // cc main.c toys.c update_states.c count_friends.c life_cycle.c print_space.c prepare_space.c
 
-//SIZE of the sandbox changable in service.h
-#define WAIT 20000 //for the animation speed, the bigger the slower the animation is
+//SIZE of the sandbox changable in service.h  -- GDZIE??
+#define WAIT 200000 //for the animation speed, the bigger the slower the animation is
 
 int main(int argc, char* argv[])
 {
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     for(k=1; k<r-1; k+=4)
         for(l=1; l<c-1; l+=4)
         {
-            froggy(r,c,space,k,l);
+//          froggy(r,c,space,k,l);
             stick(r,c,space,k+1,l+1);
         }
     
@@ -35,11 +35,7 @@ int main(int argc, char* argv[])
         int i,j;
         for(i=1; i<r-1; i++)
             for(j=1; j<c-1; j++)
-            {
-                birth(r,c,space,i,j);
-                survival(r,c,space,i,j);
-                death(r,c,space,i,j);
-            }
+                birth(r,c,space,i,j) || survival(r,c,space,i,j) || death(r,c,space,i,j);    //dla optymalizacji
         update_states(r,c,space);
         print_space(r,c,space, WAIT);
     }

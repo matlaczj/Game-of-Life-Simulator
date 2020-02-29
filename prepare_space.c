@@ -10,8 +10,8 @@ void prepare_space(int r, int c, cell_t space[r][c])
     for(i=0; i<r; i++)
         for(j=0; j<c; j++)
         {
-            if(i==0 || i==r-1 || j==0 || j==c-1)
-            {
+            if(i==0 || i==r-1 || j==0 || j==c-1)    //chyba to mozna wyrzucic poza petle zeby zoptymalizowac
+            {                                       //(chodzi o to zeby nie sprawdzalo przy kazdym przejsciu petli)
                 space[i][j].state = OFF; 
                 space[i][j].next_state = OFF; 
                 space[i][j].is_padding = ON;
