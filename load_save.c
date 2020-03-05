@@ -17,10 +17,13 @@ printf("r = %d\n", *r);
     int i, j;
     fscanf(in,"\n");
     cell_t** space = malloc(*r * sizeof(cell_t*));
-    for (i=0; i<r; i++){
+puts("Malloc OK");
+    for (i=0; i<*r; i++){
         space[i] = malloc(*c * sizeof(cell_t));
+printf("Malloc #%d OK\n", i); 
     }
     prepare_space(*r,*c,space);
+print_space(*r, *c, space, 20000);   
 puts(str1);
 
     for (i=1; i<*r-1; i++) {
@@ -33,7 +36,7 @@ printf("space[%d][%d].state", i, j);
 printf("space[%d][%d].state = %d", i, j, space[i][j].state); 
         print_space(*r, *c, space, 20000);
 printf("space[%d][%d].state = %d", i, j, space[i][j].state); 
-            space[i][j].state = str[j-1] - '0';
+        space[i][j].state = str[j-1] - '0';
 printf("space[%d][%d].state = %d", i, j, space[i][j].state); 
         }
     }
