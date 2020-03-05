@@ -23,12 +23,16 @@ int main(int argc, char* argv[])
         printf("\n%s: too little space or wrong starting position for object\n",argv[0]);
         return -1;
     }
-    update_print_space(r,c,space, WAIT);
+    update_space(r,c,space);
+    print_space(r,c,space, WAIT);
     
     int running = 1; 
     //running is incremented if at least 1 cell is still present on the space 
     //meaning it was born or survived, this way we know its still worth running the program 
     //because there is potential for new things to happen
+    
+    //ee, zamiast tego bym mierzył birth i death (survival moze się dziać na statycznej planszy
+    //w nieskończoność...)
     int nrgens = 100; //number of generations to execute and print
     while(nrgens-- && running)
     {
@@ -38,9 +42,10 @@ int main(int argc, char* argv[])
             for(j=1; j<c-1; j++)
             {
                 if(birth(r,c,space,i,j)) running++;
-                if(survival(r,c,space,i,j)) running++;
-                death(r,c,space,i,j);
+                else if(death(r,c,space,i,j)) running++;     //dodałem else bo tylko jedna opcja moze byc
+                else survival(r,c,space,i,j);
             }
-        update_print_space(r,c,space, WAIT);
+        update_space(r,c,space);
+        print_space(r,c,space, WAIT);
     }
 }

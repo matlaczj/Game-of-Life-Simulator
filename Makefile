@@ -1,5 +1,5 @@
-exec: main.o prepare_space.o update_print_space.o count_friends.o life_cycle.o toys.o
-	cc -o exec main.o prepare_space.o update_print_space.o count_friends.o life_cycle.o toys.o 
+exec: main.o prepare_space.o update_space.o print_space.o count_friends.o life_cycle.o toys.o
+	cc -o exec main.o prepare_space.o update_space.o print_space.o count_friends.o life_cycle.o toys.o 
     
 main.o: main.c service.h
 	cc -c main.c
@@ -7,8 +7,11 @@ main.o: main.c service.h
 prepare_space.o: prepare_space.c service.h
 	cc -c prepare_space.c
     
-update_print_space.o: update_print_space.c service.h
-	cc -c update_print_space.c
+update_space.o: update_space.c service.h
+	cc -c update_space.c
+
+print_space.o: print_space.c service.h
+	cc -c print_space.c
     
 count_friends.o: count_friends.c service.h
 	cc -c count_friends.c

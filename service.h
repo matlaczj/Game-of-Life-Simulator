@@ -15,7 +15,8 @@ typedef struct cell
 }cell_t;
 
 void prepare_space(int r, int c, cell_t space[r][c]);
-void update_print_space(int r, int c, cell_t space[r][c], int wait);
+void update_space(int r, int c, cell_t space[r][c]);
+void print_space(int r, int c, cell_t space[r][c], int wait);
 int count_friends(int r, int c, cell_t space[r][c], int i, int j);
 
 int birth(int r, int c, cell_t space[r][c], int i, int j);
