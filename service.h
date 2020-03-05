@@ -27,4 +27,6 @@ int glider(int r, int c, cell_t space[r][c], int k, int l);
 int froggy(int r, int c, cell_t space[r][c], int k, int l);
 int stick(int r, int c, cell_t space[r][c], int k, int l);
 
+int print_png(int r, int c, cell_t space[r][c], FILE* in);
+
 #endif
