@@ -1,4 +1,5 @@
 #include "service.h"
+#define DEBUG   //do usuniecia
 
 #define WAIT 200000 //for the animation speed, the bigger the slower the animation is
 
