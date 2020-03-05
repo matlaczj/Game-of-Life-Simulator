@@ -12,9 +12,13 @@ int main(int argc, char* argv[])
     r+=2;
     c+=2;
     
-    cell_t space[r][c];
-    prepare_space(r,c,space);
-    
+
+    cell_t space2[r][c];
+    prepare_space(r,c,space2);
+    cell_t** space = space2;
+    FILE* in = fopen("example.life", "r");
+    if (in) space = load (&r, &c, space, in);
+
     //creating a glider for testing:
     //of size 3x3 so r and c should be at least 3 long
     //please remeber that indexes shouldnt be on padding
@@ -23,14 +27,14 @@ int main(int argc, char* argv[])
         printf("\n%s: too little space or wrong starting position for object\n",argv[0]);
         return -1;
     }
-    FILE* in = fopen("out.png", "wb");
-    if (!in)
+    FILE* out = fopen("out.png", "wb");
+    if (!out)
         printf("\n%s: File %s could not be opened for writing", argv[0], "out.png");
     update_space(r,c,space);
     print_space(r,c,space, WAIT);
-    print_png(r, c, space, in);
+    print_png(r, c, space, out);
 
-    fclose(in);
+    fclose(out);
     
     int running = 1; 
     //running is incremented if at least 1 cell is still present on the space 

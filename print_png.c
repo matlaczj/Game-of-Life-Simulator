@@ -81,7 +81,8 @@ void write_png_file(FILE* fp) {
 //  fclose(fp);
 }
 
-int print_png(int r, int c, cell_t space[r][c], FILE* in) {
+int print_png(int r, int c, cell_t space[r][c], FILE* out) {
     process_file(r, c, space);
-    write_png_file(in);
+    write_png_file(out);
+    return 0;
 }
