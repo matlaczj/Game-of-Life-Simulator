@@ -19,7 +19,7 @@ void print_space(int r, int c, cell_t space[r][c], int wait) {
             }
 #endif
         }
-        puts('\n');
+        putchar('\n');
     }            
     usleep(wait);
         
