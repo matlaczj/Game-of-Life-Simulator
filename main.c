@@ -89,13 +89,16 @@ int main(int argc, char* argv[])
         print_png(r,c,space,gen);
         fclose(gen);
 
-        mkdir("output_images", 0777);
+        mkdir("output_states", 0777);
         sprintf(name,"output_states/state%d.life", gencount-nrgens);
+
         gen = fopen(name, "w");
 
 #ifdef DEBUG
         if (!gen)
             printf("\n%s: File %s could not be opened for writing", argv[0], name);
+        else
+            puts("fopen OK");
 #endif
         save(r,c,space,gen);
         fclose(gen);
