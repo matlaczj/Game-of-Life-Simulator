@@ -25,19 +25,20 @@ int main(int argc, char* argv[])
     fills matrix with appropriate values.*/
     cell_t space[r][c];
     prepare_space(r,c,space);
-
-#ifdef DEBUG
-    FILE* in = fopen("out.png", "wb");
-    if (!in)
-        printf("\n%s: File %s could not be opened for writing", argv[0], "out.png");
-    print_png(r, c, space, in);
-#endif
     
     /*Here we create the starting state of this automata.*/
     int i,j;
         for(i=1; i<r-1; i+=5)
             for(j=1; j<c-1; j+=5)
                 glider(r,c,space,i,j);
+
+#ifdef DEBUG
+    FILE* in = fopen("out.png", "wb");
+    if (!in)
+        printf("\n%s: File %s could not be opened for writing", argv[0], "out.png");
+    print_png(r, c, space, in);
+    fclose (in);
+#endif
  
     /*Main loop in the program. 
     Executes maximum of times equal to the 3rd argument.

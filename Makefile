@@ -1,7 +1,7 @@
 CC := cc -ggdb #usun to ggdb jesli nie uzywasz valgrinda, whatever
 
 exec: main.o prepare_space.o update_space.o print_space.o count_friends.o life_cycle.o toys.o print_png.o
-	$(CC) -o exec main.o prepare_space.o update_space.o print_space.o count_friends.o life_cycle.o toys.o print_png.o -lpng 
+	$(CC) -o exec main.o prepare_space.o update_space.o print_space.o count_friends.o life_cycle.o toys.o print_png.o -lpng
     
 main.o: main.c service.h
 	$(CC) -c main.c
