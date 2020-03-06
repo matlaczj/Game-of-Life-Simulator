@@ -31,15 +31,15 @@ int main(int argc, char* argv[])
     cell_t space[r][c];
     prepare_space(r,c,space);
     
-//    if (argc > 1 && in!=NULL)
-//        load(r,c,space,in);
-//    else {
+    if (argc > 1 && in!=NULL)
+        load(r,c,space,in);
+    else {
     /*Here we create the starting state of this automata.*/
         int i,j;
             for(i=1; i<r-1; i+=5)
                 for(j=1; j<c-1; j+=5)
                     glider(r,c,space,i,j);
-//    }
+    }
 
 #ifdef DEBUG
     FILE* out = fopen("out.png", "wb");
@@ -63,6 +63,8 @@ int main(int argc, char* argv[])
     int k = 4;
     int running = 1;
     int nrgens = gencount;
+
+    print_space(r,c,space, WAIT);
 
     while(nrgens-- && running) // chcesz to mozesz usunac to running, mysle ze jednak jest przydatne :p
     {
