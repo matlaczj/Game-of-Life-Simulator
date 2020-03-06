@@ -32,8 +32,10 @@ void process_file(int r, int c, cell_t space[r][c]) {
     png_byte* row = row_pointers[y];
     for (x=0; x<width; x++) {
       row[x] = space[x][y].state==ON ? 255 : 0;
+#ifdef DEBUG
       printf("Pixel at position [ %d - %d ] has RGBA values: %d\n",
        x, y, row[x]);
+#endif
     }
   }
 }

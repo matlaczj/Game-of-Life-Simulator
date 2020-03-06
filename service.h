@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 /*These macros are used in various places to indicate if something is on or off. Its easier this way that to write 1 or 0.
 I introduced IRR macro to indicate that something is irrelevant and it will be used for padding's state and next_state and for

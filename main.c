@@ -33,11 +33,11 @@ int main(int argc, char* argv[])
                 glider(r,c,space,i,j);
 
 #ifdef DEBUG
-    FILE* in = fopen("out.png", "wb");
-    if (!in)
+    FILE* out = fopen("out.png", "wb");
+    if (!out)
         printf("\n%s: File %s could not be opened for writing", argv[0], "out.png");
-    print_png(r, c, space, in);
-    fclose (in);
+    print_png(r, c, space, out);
+    fclose (out);
 #endif
  
     /*Main loop in the program. 
@@ -50,9 +50,10 @@ int main(int argc, char* argv[])
     Later we increment nrgens to indicate the current generation which are counted from 0th generation. 
     */
     char name[30];
-    int nrgens = argc > 3 ? atoi(argv[3]) : 100;
+    const int gencount = argc > 3 ? atoi(argv[3]) : 100;
     int k = 4;
-    int running;
+    int running = 1;
+    int nrgens = gencount;
 
     while(nrgens-- && running) // chcesz to mozesz usunac to running, mysle ze jednak jest przydatne :p
     {
@@ -65,6 +66,17 @@ int main(int argc, char* argv[])
                 else if(death(r,c,space,i,j)) running++;     //dodałem else bo tylko jedna opcja moze byc
                 else survival(r,c,space,i,j);
             }
+
+        mkdir("output_images", 0777);
+        sprintf(name,"output_images/gen%d.png", gencount-nrgens);
+        FILE* gen = fopen(name, "wb");
+
+#ifdef DEBUG
+        if (!gen)
+            printf("\n%s: File %s could not be opened for writing", argv[0], name);
+#endif
+        print_png(r,c,space,gen);
+        fclose(gen);
 
             /*tutaj funkcja ktora bedzie zapisywac do pliku png, przykladowy 
             generator nazw: sprintf(name,"%d%s",nrgens,".png"); */
