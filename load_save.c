@@ -18,3 +18,12 @@ int load(int r, int c, cell_t space[r][c], FILE *in){
     }
     return 0;
 }
+
+int save(int r, int c, cell_t space[r][c], FILE *in){
+    fprintf(in, "COLUMNS = %d\nROWS = %d\n", c, r);
+    for (int i=1; i<r-1; i++) {
+        fprintf (in, "\n");
+        for (int j=1; j<c-1; j++)
+            fprintf (in, "%d", space[i][j].state);
+    }
+}
