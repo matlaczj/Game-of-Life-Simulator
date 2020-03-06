@@ -19,7 +19,8 @@ typedef struct cell
 }cell_t;
 
 void prepare_space(int r, int c, cell_t space[r][c]);
-void print_update_space(int r, int c, cell_t space[r][c], int wait);
+void update_space(int r, int c, cell_t space[r][c]);
+void print_space(int r, int c, cell_t space[r][c], int wait);
 int count_friends(int r, int c, cell_t space[r][c], int i, int j);
 
 int birth(int r, int c, cell_t space[r][c], int i, int j);
@@ -29,5 +30,7 @@ int death(int r, int c, cell_t space[r][c], int i, int j);
 int glider(int r, int c, cell_t space[r][c], int k, int l);
 int froggy(int r, int c, cell_t space[r][c], int k, int l);
 int stick(int r, int c, cell_t space[r][c], int k, int l);
+
+int print_png(int r, int c, cell_t space[r][c], FILE* in);
 
 #endif
