@@ -6,15 +6,20 @@
 
 int main(int argc, char* argv[])
 {
-    /*User runs program with 2 arguments: argv[1] is amount of rows and argv[2] is amount of columns.
+    /* W tej wersji programu pierwszy argument to nazwa pliku LIFE, z ktorego zostanie wczytany stan poczatkowy.
     If user wanted to create the biggest square possible that would be of size 1669x1669, but the biggest
     square that fits my 11-inch screen is 400x400 cells.
     -- oof, *cries in 4K*
     Maximum of 2 875 561 cells can be simulated at once so r times c cant be bigger than 
     this number or a segmentation fault will appear. 
     Later we have to add 2 to r and to c to make space for padding (frame) for space which we will need.*/
-    int r = argc > 1 ? atoi(argv[1])+2 : 12;
-    int c = argc > 2 ? atoi(argv[2])+2 : 12;
+    int r, c;
+    FILE* in = argc > 1 ? fopen(argv[1], "r") : NULL;
+    if(argc > 1 && in!=NULL)
+        in = load_dim(&r,&c,in);
+    else
+        r = c = 12;
+
     if(r*c > 1671*1671)
     {
         printf("\n%s:Too many cells. Maximum amount of cells is %d.\n",argv[0],1671*1671);
@@ -26,11 +31,15 @@ int main(int argc, char* argv[])
     cell_t space[r][c];
     prepare_space(r,c,space);
     
+//    if (argc > 1 && in!=NULL)
+//        load(r,c,space,in);
+//    else {
     /*Here we create the starting state of this automata.*/
-    int i,j;
-        for(i=1; i<r-1; i+=5)
-            for(j=1; j<c-1; j+=5)
-                glider(r,c,space,i,j);
+        int i,j;
+            for(i=1; i<r-1; i+=5)
+                for(j=1; j<c-1; j+=5)
+                    glider(r,c,space,i,j);
+//    }
 
 #ifdef DEBUG
     FILE* out = fopen("out.png", "wb");
@@ -50,7 +59,7 @@ int main(int argc, char* argv[])
     Later we increment nrgens to indicate the current generation which are counted from 0th generation. 
     */
     char name[30];
-    const int gencount = argc > 3 ? atoi(argv[3]) : 100;
+    const int gencount = argc > 2 ? atoi(argv[2]) : 100;
     int k = 4;
     int running = 1;
     int nrgens = gencount;

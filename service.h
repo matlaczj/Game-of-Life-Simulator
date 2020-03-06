@@ -35,4 +35,8 @@ int stick(int r, int c, cell_t space[r][c], int k, int l);
 
 int print_png(int r, int c, cell_t space[r][c], FILE* in);
 
+FILE* load_dim(int *, int *, FILE *);
+int load(int r, int c, cell_t[r][c], FILE *);
+int save(int r, int c, cell_t[r][c], FILE *);
+
 #endif
