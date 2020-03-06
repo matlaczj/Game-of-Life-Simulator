@@ -52,9 +52,7 @@ int main(int argc, char* argv[])
     int nrgens = argc > 3 ? atoi(argv[3]) : 100;
     int k = 4;
     int running;
-#ifdef DEBUG
-    puts("OK");
-#endif   
+
     while(nrgens-- && running) // chcesz to mozesz usunac to running, mysle ze jednak jest przydatne :p
     {
         running = 0;
@@ -65,9 +63,6 @@ int main(int argc, char* argv[])
                 if(birth(r,c,space,i,j)) running++;
                 else if(death(r,c,space,i,j)) running++;     //dodałem else bo tylko jedna opcja moze byc
                 else survival(r,c,space,i,j);
-#ifdef DEBUG
-               printf("%d\n", nrgens);
-#endif
             }
 
             /*tutaj funkcja ktora bedzie zapisywac do pliku png, przykladowy 
