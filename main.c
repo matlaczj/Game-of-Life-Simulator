@@ -16,9 +16,9 @@ int main(int argc, char* argv[])
     int r, c;
     FILE* in = argc > 1 ? fopen(argv[1], "r") : NULL;
     if(argc > 1 && in!=NULL)
-        in = load_dim(&r,&c,in);
+        load_dim(&r,&c,in); //in = load_dim(&r,&c,in); // nie ma sensu przypisywac in jego wlasnej wartosci
     else
-        r = c = 12;
+        r = c = DEF_SQ_SIDE+2; //zastapilem magiczna liczbe 10+2=12 makrem aby byla wieksza plastycznosc
 
     if(r*c > 1671*1671)
     {
@@ -59,8 +59,8 @@ int main(int argc, char* argv[])
     Later we increment nrgens to indicate the current generation which are counted from 0th generation. 
     */
     char name[30];
-    const int gencount = argc > 2 ? atoi(argv[2]) : 100;
-    int k = 4;
+    const int gencount = argc > 2 ? atoi(argv[2]) : DEF_N_GENS; //zamieniam magiczna liczbe makrem
+    //int k = 4; //usuwam zbedna zmienna
     int running = 1;
     int nrgens = gencount;
 
