@@ -15,7 +15,6 @@ void update_space(int r, int c, cell_t space[r][c])
             space[i][j].next_state = OFF;
             //
         }
-        printf("\n");
     } 
 
 }
