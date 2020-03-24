@@ -26,4 +26,5 @@ int save(int r, int c, cell_t space[r][c], FILE *in){
         for (int j=1; j<c-1; j++)
             fprintf (in, "%d", space[i][j].state);
     }
+    return 1;
 }
