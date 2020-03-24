@@ -135,9 +135,9 @@ int main(int argc, char *argv[])
             fclose(gen);
 
             if (argc > 4)
-                sprintf(name, "%s/output_states/%s%d.png", argv[4], argv[4], gencount - nrgens);
+                sprintf(name, "%s/output_states/%s%d.life", argv[4], argv[4], gencount - nrgens);
             else
-                sprintf(name, "output_states/gen%d.png", gencount - nrgens);
+                sprintf(name, "output_states/gen%d.life", gencount - nrgens);
 
             gen = fopen(name, "w");
 
