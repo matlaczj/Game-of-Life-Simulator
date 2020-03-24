@@ -5,7 +5,8 @@
 
 int main(int argc, char *argv[])
 //Wywolanie: ./exec plik_startowy.life liczba_generacji [szybkosc_wyswietlania] [custom_name] [numer_generacji1] [numer_generacji2] ...
-//Trzeci argument to liczba calkowita. 0 - brak wyswietlania, 10 - wartosc domyslna.
+//Trzeci argument to liczba calkowita. 0 - brak wyswietlania, 10 - wartosc domyslna, 
+// wolno nam pominac tylko argumenty od prawej strony, nie wolno pozostawiac pustych argumentow ze srodka bo ich miejsce zajmie //inny argument i bedzie inne zachowanie
 //Jesli czwarty jest okreslony, wygenerowane pliki LIFE i PNG
 //beda zaczynaly sie od custom_name i zostana przeniesione do osobnego folderu.
 //Jesli piaty jest okreslony, zostana wygenerowane pliki PNG i LIFE tylko okreslonych generacji.
