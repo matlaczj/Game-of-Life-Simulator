@@ -18,8 +18,8 @@ int number_of_passes;
 png_bytep * row_pointers;
 
 void process_file(int r, int c, cell_t space[r][c]) {
-  width = c;
-  height = r;
+  width = 20*c;
+  height = 20*r;
   bit_depth = 8;
   color_type = PNG_COLOR_TYPE_GRAY;
 
@@ -31,7 +31,7 @@ void process_file(int r, int c, cell_t space[r][c]) {
   for (y=0; y<height; y++) {
     png_byte* row = row_pointers[y];
     for (x=0; x<width; x++) {
-      row[x] = space[y][x].state==ON ? 255 : 0;
+      row[x] = space[y/20][x/20].state==ON ? 255 : 0;
 #ifdef DEBUG
       printf("Pixel at position [ %d - %d ] has RGBA values: %d\n",
        x, y, row[x]);
