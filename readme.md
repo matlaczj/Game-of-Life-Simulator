@@ -1,6 +1,8 @@
 # Game of Life Simulator
 
-<img src="https://th.bing.com/th/id/OIG.TdBLlrQXqcOeES8OPM1R?pid=ImgGn" width="300" height="300" style="display: block; margin: auto;">
+<p align="center">
+  <img src="game-of-life-simulator.png" alt="Logo" width="400"/>
+</p>
 
 ## Overview
 
