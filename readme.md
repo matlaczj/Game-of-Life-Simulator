@@ -44,6 +44,10 @@ To use the simulator, follow the instructions outlined in the [Usage section](#u
 
 ## Program Structure
 
+<p align="center">
+  <img src="project_structure_grouped.png" alt="project_structure_grouped"/>
+</p>
+
 The project is structured into several modules, each handling a specific aspect of the simulation. The key modules include:
 - `main.c`: Contains the main function.
 - `service.h`: Header file with macros, structure definition, and function prototypes.
